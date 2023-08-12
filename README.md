@@ -1,0 +1,3 @@
+# Differentiable Binarisation meets Graph Neural Networks
+
+This repository contains the code for the paper [Differentiable Binarisation meets Graph Neural Networks](https://arxiv.org/abs/2106.05232) by [Mihailo Isakov](https://mihailoisakov.github.io/), [Pietro Liò](https://www.cl.cam.ac.uk/~pl219/), [Mateja Jamnik](https://www.cl.cam.ac.uk/~mj202/), [Ross D. King](https://www.cl.cam.ac.uk/~rdk22/), [Nezihe Merve Gürel](https://www.cl.cam.ac.uk/~nmg30/), and [Cecilia Mascolo](https://www.cl.cam.ac.uk/~cm542/).
