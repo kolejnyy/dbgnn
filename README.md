@@ -15,7 +15,7 @@ In the paper [DBNet](https://arxiv.org/abs/1911.08947), the authors propose a di
 
 To obtain the final binarised output, each pixel is transformed accordinf to the DB formula:
 
-$$\hat{B}_{i,j} = \frac{1}{1+e^{-k(P_{i,j}-T_{i,j})}}$$
+$\hat{B}_{i,j} = \frac{1}{1+e^{-k(P_{i,j}-T_{i,j})}}$
 
 where $P$ represents the segmetation map, $T$ - the thresholding map, and $k$ is a temperature constant, set by the authors to 50. This allows the network to learn the binarisation process on its own, without the need of manually setting the thresholding value, making the whole process differentiable and end-to-end trainable.
 
