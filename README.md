@@ -13,7 +13,7 @@ In the paper [DBNet](https://arxiv.org/abs/1911.08947), the authors propose a di
 
 <img src="images/db_module.png" width=100%/>
 
-To obtain the final binarised output, each pixel is transformed accordinf to the DB formula:
+To obtain the final binarised output, each pixel is transformed according to the DB formula:
 
 $\hat{B}_{i,j} = \frac{1}{1+e^{-k(P_{i,j}-T_{i,j})}}$
 
@@ -42,3 +42,18 @@ The targets are binary labels, where a label of 1 means that the node is a tap, 
 The dataset consists of artificially generated graphs, where nodes represent distribution points and edges represent connections. Each node has a set of features, being a 1-hot encoding of the strength of the source of signal / distractor at that point. We assume that source of signal $v$ distributes signal to all points located in a radius of $k_v$, where $k_v$ is the strength of source $v$, with the strenth decreasing by 1 as the distance from the source increases by 1. Analogously, the distractors affect points lying in at most $|k_v|$ distance from the distractor, where $k_v$ is the strength of the distractor.
 
 The targets are binary labels, where a label of 1 means that there is a signal at the point (the cumulative power of signal sources at that exceeds the strength of distraction at that point).
+
+
+## Results
+
+SDDataset, CNN 5 layers, 32 hidden_dim:
+Mean accuracy:  90.90979385375977
+Standard deviation:  0.3178049320139572
+
+### Island Dataset
+
+| Model | Accuracy | Precision | Recall | F1 |
+| --- | :---: | :---: | :---: | :-----: |
+| DBCNN 	|   99.81 ± 0.16 	|	98.99 ± 0.92	|	99.61 ± 0.23	|	99.30 ± 0.56	|
+
+
