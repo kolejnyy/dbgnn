@@ -156,3 +156,13 @@ def print_color_numpy(map, list_graphs):
     map_modified = np.vectorize(get_color_coded_str)(map, block_color)
     print("\n".join([" ".join(["{}"]*map.shape[0])]*map.shape[1]).format(*[x for y in map_modified.tolist() for x in y]))
   
+
+# Create a 10x10 grid graph
+def draw_grid(colors):
+	G = nx.grid_2d_graph(30, 30)
+	pos = np.zeros((30,30,2))
+	for i in range(30):
+		for j in range(30):
+			pos[i,j] = [i,j]
+	plt.figure(figsize=(6,6))
+	nx.draw(G, cmap='viridis', pos=pos, node_color=colors, node_size=100)
