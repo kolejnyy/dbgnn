@@ -6,6 +6,7 @@ from torch_geometric.data import Dataset, Data
 
 from tqdm import tqdm
 
+from util.thresholding import generate_threshold_map
 
 class SDDataset(Dataset):
 	def __init__(self, k_max=5, load_path=None, rho=None, transform=None, pre_transform=None,
@@ -27,7 +28,8 @@ class SDDataset(Dataset):
 			y = np.load(load_path+'y.npy', allow_pickle=True)
 			edge_index = np.load(load_path+'edge_index.npy', allow_pickle=True)
 			for i in tqdm(range(len(x))):
-				graph = Data(x=torch.from_numpy(x[i].reshape(-1, 2*k_max+1)).float(), y=torch.from_numpy(y[i]).float(), edge_index=torch.from_numpy(edge_index[i].reshape(2, -1)).long())
+				graph = Data(x=torch.from_numpy(x[i].reshape(-1, 2*k_max+1)).float(), y=torch.from_numpy(y[i]).long(), edge_index=torch.from_numpy(edge_index[i].reshape(2, -1)).long())
+				graph.thr = self.generate_threshold_map(graph)
 				self.data.append(graph)
 
 		else:
@@ -47,7 +49,8 @@ class SDDataset(Dataset):
 		
 		# Generate node labels
 		graph.y, _ = propagate_signal(graph, features)
-		return graph
+		graph.thr = generate_threshold_map(graph)
+		return graph 
 
 	def len(self):
 		return len(self.fake_data)

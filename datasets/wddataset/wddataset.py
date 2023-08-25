@@ -27,7 +27,7 @@ class WDDataset(Dataset):
 			y = np.load(load_path+'y.npy', allow_pickle=True)
 			edge_index = np.load(load_path+'edge_index.npy', allow_pickle=True)
 			for i in tqdm(range(len(x))):
-				graph = Data(x=torch.from_numpy(x[i].reshape(-1, k_max)).float(), y=torch.from_numpy(y[i]).float(), edge_index=torch.from_numpy(edge_index[i].reshape(2, -1)).long())
+				graph = Data(x=torch.from_numpy(x[i].reshape(-1, k_max)).float(), y=torch.from_numpy(y[i]).long(), edge_index=torch.from_numpy(edge_index[i].reshape(2, -1)).long())
 				self.data.append(graph)
 
 		else:
