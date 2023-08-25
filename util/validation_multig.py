@@ -53,7 +53,7 @@ def test_model(model, dataset, valid_split, test_split, debug=False, db=False):
 
 
 def evaluate_model(model, dataset, train_split, valid_split, test_split, debug=False, db=False):
-	val_acc = validate_model(model, dataset, train_split, valid_split, debug=False, db=db)
-	acc, prec, rec, f1 = test_model(model, dataset, valid_split, test_split, debug=False, db=db)
+	val_acc = validate_model(model, dataset, train_split, valid_split, debug=debug, db=db)
+	acc, prec, rec, f1 = test_model(model, dataset, valid_split, test_split, debug=debug, db=db)
 
 	return val_acc, acc, prec, rec, f1
