@@ -5,8 +5,9 @@ import torch
 from torch_geometric.data import Data
 import matplotlib.pyplot as plt
 
-from util.validation_multig import validate_model, evaluate_model
-
+from util.validation_singleg import validate_model as validate_single, evaluate_model as evaluate_single
+from util.validation_multig import validate_model as validate_multi, evaluate_model as evaluate_multi
+from util.thresholding import generate_threshold_map
 
 def create_mini_batch(graph_list):
 	batch_edge_index = graph_list[0].edge_index
@@ -37,9 +38,11 @@ def create_mini_batch(graph_list):
 	return batch_graph
 
 
+
+
 def train(model, dataset, epochs, batch_size, lr, train_split, valid_split, test_split,
 		weight_decay=0, print_interval=10, valid_interval=10, debug=False,
-		db=False, thr_sv=False, thr_sv_alpha=10):
+		db=False, thr_sv=False, thr_sv_alpha=10, single_graph=False):
 
 	optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
 	criterion = torch.nn.CrossEntropyLoss()
@@ -51,33 +54,56 @@ def train(model, dataset, epochs, batch_size, lr, train_split, valid_split, test
 	total_losses = []
 	val_accuracies = []
 
+	graph = dataset.get(0)
+	graph.thr = generate_threshold_map(graph)
+	graph = graph.to(model.device)
+
 	for epoch in range(epochs):
 		model.train()
 		losses = []
-		perm = torch.randperm(train_split)
-		for i in range(0, train_split, batch_size):
-			optimizer.zero_grad()
-			graph_list = [dataset.get(perm[i+j]) for j in range(min(batch_size, train_split-i))]
-			batch = create_mini_batch(graph_list).to(model.device)
-			if not db:
-				out = model(batch)
-			else:
-				out, pred, thr = model(batch)
+		if not single_graph:
+			perm = torch.randperm(train_split)
+			for i in range(0, train_split, batch_size):
+				optimizer.zero_grad()
+				graph_list = [dataset.get(perm[i+j]) for j in range(min(batch_size, train_split-i))]
+				batch = create_mini_batch(graph_list).to(model.device)
+				if not db:
+					out = model(batch)
+				else:
+					out, pred, thr = model(batch)
 
-			loss = criterion(out, batch.y)
+				loss = criterion(out, batch.y)
+				if db:
+					loss += criterion(pred, batch.y)
+				if thr_sv:
+					loss += thr_sv_alpha*mse(thr, batch.thr)
+
+				loss.backward()
+				optimizer.step()
+				losses.append(loss.item())
+		else:
+			optimizer.zero_grad()
+			if not db:
+				out = model(graph)
+			else:
+				out, pred, thr = model(graph)
+			
+			loss = criterion(out[train_split], graph.y[train_split])
 			if db:
-				loss += criterion(pred, batch.y)
+				loss += criterion(pred[train_split], graph.y[train_split])
 			if thr_sv:
-				loss += thr_sv_alpha*mse(thr, batch.thr)
+				loss += thr_sv_alpha*mse(thr[train_split].flatten(), graph.thr[train_split])
 
 			loss.backward()
 			optimizer.step()
 			losses.append(loss.item())
-		
+
+
 		total_losses.append(np.mean(losses))
 
 		if (epoch+1)%valid_interval==0:
-			val_acc, mess = validate_model(model, dataset, train_split, valid_split, db=db)
+			val_acc, mess = validate_single(model, dataset, valid_split, db=db) if single_graph else \
+							validate_multi(model, dataset, train_split, valid_split, db=db)
 			val_accuracies.append(val_acc)
 			if val_acc > best_val_acc:
 				best_val_acc = val_acc
@@ -89,11 +115,12 @@ def train(model, dataset, epochs, batch_size, lr, train_split, valid_split, test
 			print(message)
 
 	if debug:
-		plt.plot(losses, label="Training loss")
+		plt.plot(total_losses, label="Training loss")
 		plt.show()
 
 		plt.plot(list(range(0, epochs, valid_interval)), val_accuracies, label="Validation accuracy")
 		plt.show()
 
-	val_acc, acc, prec, rec, f1 = evaluate_model(best_model, dataset, train_split, valid_split, test_split, db=db)
+	val_acc, acc, prec, rec, f1 = 	evaluate_single(best_model, dataset, valid_split, test_split, db=db) if single_graph \
+									else evaluate_multi(best_model, dataset, train_split, valid_split, test_split, db=db)
 	return best_model, val_acc, acc, prec, rec, f1
