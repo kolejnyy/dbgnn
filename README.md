@@ -46,24 +46,32 @@ The targets are binary labels, where a label of 1 means that there is a signal a
 
 ## Results
 
-SDDataset, CNN 5 layers, 32 hidden_dim:
-Mean accuracy:  90.90979385375977
-Standard deviation:  0.3178049320139572
+### Signal Distribution Dataset
 
-### Island Dataset
+5 layers, 100 epochs, 0.003 lr, 32 hidden dim, 32 batch_size, 50 evaluations
 
 | Model | Accuracy | Precision | Recall | F1 |
 | --- | :---: | :---: | :---: | :-----: |
-| CNN		|	99.63 ± 0.21	|	98.51 ± 0.45	|	98.82 ± 0.12	|	98.66 ± 0.76	|
-| DB-CNN 	|   99.81 ± 0.16 	|	98.99 ± 0.92	|	99.61 ± 0.23	|	99.30 ± 0.56	|
+| CNN		|	91.24 ± 0.53	|	90.66 ± 1.17	|	89.22 ± 1.66	|	89.92 ± 0.67	|
+| DB-CNN	|	89.91 ± 0.29	|	89.80 ± 1.08	|	86.86 ± 1.52	|	88.29 ± 0.42	|
+| DB-CNN+SV |   89.66 ± 0.28 	|	90.55 ± 0.89	|	85.34 ± 1.49	|	87.85 ± 0.46	|
 
+### Island Dataset
 
+5 layers, 100 epochs, 0.003 lr, 32 hidden dim, 12 batch_size, 25 evaluations 
 
-Mean accuracy:  0.99634
-Accuracy SD:  0.002062434136621402
-Mean precision:  0.9851098817180439
-Precision SD:  0.004454433512293739
-Mean recall:  0.988226237744105
-Recall SD:  0.011574070561945092
-Mean F1:  0.9866460299329131
-F1 SD:  0.0076228076054524
+| Model | Accuracy | Precision | Recall | F1 |
+| --- | :---: | :---: | :---: | :-----: |
+| CNN		|	99.77 ± 0.14	|	98.99 ± 0.70	|	99.33 ± 0.39	|	99.16 ± 0.51	|
+| DB-CNN	|	99.89 ± 0.09	|	99.59 ± 0.54	|	99.63 ± 0.29	|	99.61 ± 0.31	|
+| DB-CNN+SV |   99.80 ± 0.09 	|	99.08 ± 0.62	|	99.50 ± 0.17	|	99.29 ± 0.32	|
+
+### Twitch-DE
+
+5 layers, 200 epochs, 0.007 lr, 128 hidden dim, 50 evaluations
+
+| Model | Accuracy | Precision | Recall | F1 |
+| --- | :---: | :---: | :---: | :-----: |
+| CNN		|	64.40 ± 0.97	|	68.54 ± 1.50	|	77.16 ± 5.45	|	72.45 ± 1.76	|
+| DB-CNN	|	65.11 ± 0.84	|	68.99 ± 1.21	|	77.80 ± 4.50	|	73.04 ± 1.48	|
+| DB-CNN+SV |   64.20 ± 1.55 	|	67.85 ± 2.29	|	79.24 ± 8.28	|	72.78 ± 2.72	|
