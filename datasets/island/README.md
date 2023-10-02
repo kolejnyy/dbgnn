@@ -12,10 +12,11 @@ The dataset used for evaluations contains 1000 graphs, each of size 30x30. The g
 
 The examples of generated islands are shown below:
 
+<p align="center">
 <img src="../../images/island1.png" width="30%" />
 <img src="../../images/island2.png" width="30%" />
 <img src="../../images/island3.png" width="30%" />
-
+</p>
 
 ## Thresholding map
 
@@ -25,9 +26,11 @@ The thresholding maps used by the DB module are generated using the standard pro
 
 Examples of thresholding maps for the islands shown above are presented below:
 
+<p align="center">
 <img src="../../images/thr1.png" width="30%" />
 <img src="../../images/thr2.png" width="30%" />
 <img src="../../images/thr3.png" width="30%" />
+</p>
 
 ## Results
 
