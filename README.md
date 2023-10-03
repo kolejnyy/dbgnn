@@ -93,8 +93,8 @@ The targets are binary labels, where a label of 1 means that there is a signal a
 | Model | Accuracy | Precision | Recall | F1 |
 | --- | :---: | :---: | :---: | :-----: |
 | GCN		|	85.82 ± 0.38	|	78.54 ± 2.34	|	63.88 ± 2.55	| 	70.38 ± 0.83	|
-| DB-GCN	|	 ± 	|	 ± 	|	 ± 	|	 ± 	|
-| DB-GCN+SV |	 ± 	|	 ± 	|	 ± 	|	 ± 	|
+| DB-GCN	|	86.06 ± 0.31	|	79.07 ± 0.99	|	64.23 ± 1.95	|	70.85 ± 1.01	|
+| DB-GCN+SV |	86.04 ± 0.24	|	79.01 ± 1.57	|	64.26 ± 2.79	|	70.81 ± 1.12	|
 
 ## TODO
 - [ ] Add DB to other GNN architectures (GAT, GIN)
