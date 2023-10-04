@@ -1,6 +1,6 @@
 # Island Dataset
 
-The dataset consists of artificially generated orthogonal grid graphs representing islands. Each node has a set of features, which are positive if the node represents land and negative if the node represents water. The targets are binary labels, where a label of 1 means that the node either represents a land area or is directly connected to a land node. 
+The dataset consists of artificially generated orthogonal grid graphs representing islands. Each node has a set of features, which are positive if the node represents land and negative if the node represents water. The targets are binary labels, where a label of 1 means that the node either represents a land area or is directly connected to a land node, and a label of 0 represents a water node not connected to any land area. 
 
 ## Dataset generation
 

@@ -31,17 +31,16 @@ The experiments are performed on the following real datasets:
 
 and two artificial datasets:
 
-#### Water Distribution Dataset (WDD)
-
-The dataset consists of artificially generated graphs, where nodes represent distribution points and edges represent pipes. Each node has a set of features, being a 1-hot encoding of the strength of the source of water at that point. We assume that source of water $v$ distributes water to all points located in a radius of $k_v$, where $k_v$ is the strength of source $v$.
-
-The targets are binary labels, where a label of 1 means that the node is a tap, and a label of 0 means that the node is not a tap (no water is distributed to that point).
-
 #### Signal Distribution Dataset (SDD)
 
 The dataset consists of artificially generated graphs, where nodes represent distribution points and edges represent connections. Each node has a set of features, being a 1-hot encoding of the strength of the source of signal / distractor at that point. We assume that source of signal $v$ distributes signal to all points located in a radius of $k_v$, where $k_v$ is the strength of source $v$, with the strenth decreasing by 1 as the distance from the source increases by 1. Analogously, the distractors affect points lying in at most $|k_v|$ distance from the distractor, where $k_v$ is the strength of the distractor.
 
 The targets are binary labels, where a label of 1 means that there is a signal at the point (the cumulative power of signal sources at that exceeds the strength of distraction at that point).
+
+
+#### Island Dataset
+
+The dataset consists of artificially generated orthogonal grid graphs representing islands. Each node has a set of features, which are positive if the node represents land and negative if the node represents water. The targets are binary labels, where a label of 1 means that the node either represents a land area or is directly connected to a land node, and a label of 0 represents a water node not connected to any land area. 
 
 
 ## Results
