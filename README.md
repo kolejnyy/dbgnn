@@ -37,17 +37,18 @@ The dataset consists of artificially generated graphs, where nodes represent dis
 
 The targets are binary labels, where a label of 1 means that there is a signal at the point (the cumulative power of signal sources at that exceeds the strength of distraction at that point).
 
+The data and more information can be found [here](https://github.com/kolejnyy/dbgnn/tree/main/datasets/sddataset)
+
 
 #### Island Dataset
 
 The dataset consists of artificially generated orthogonal grid graphs representing islands. Each node has a set of features, which are positive if the node represents land and negative if the node represents water. The targets are binary labels, where a label of 1 means that the node either represents a land area or is directly connected to a land node, and a label of 0 represents a water node not connected to any land area. 
 
+the data and its visualisations can be found [here](https://github.com/kolejnyy/dbgnn/tree/main/datasets/island)
 
 ## Results
 
 ### Signal Distribution Dataset
-
-5 layers, 100 epochs, 0.003 lr, 32 hidden dim, 32 batch_size, 50 evaluations
 
 | Model | Accuracy | Precision | Recall | F1 |
 | --- | :---: | :---: | :---: | :-----: |
@@ -56,8 +57,6 @@ The dataset consists of artificially generated orthogonal grid graphs representi
 | DB-GCN+SV |   89.66 ± 0.28 	|	90.55 ± 0.89	|	85.34 ± 1.49	|	87.85 ± 0.46	|
 
 ### Island Dataset
-
-5 layers, 100 epochs, 0.003 lr, 32 hidden dim, 12 batch_size, 25 evaluations 
 
 | Model | Accuracy | Precision | Recall | F1 |
 | --- | :---: | :---: | :---: | :-----: |

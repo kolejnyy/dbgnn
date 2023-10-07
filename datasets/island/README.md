@@ -34,7 +34,7 @@ Examples of thresholding maps for the islands shown above are presented below:
 
 ## Results
 
-The results of the experiments are presented in the table below:
+The results of the experiments are presented in the table below. GCN models consisted of 5 layers with hidden dimension of 32 and were trained for 100 epochs with learning rate 0.003 and batch size 12. For each evaluation the model maximizing validation accuracy was chosen for predicting the test split. The results shown below are taken over 25 evaluations.
 
 | Model | Accuracy | Precision | Recall | F1 |
 | --- | :---: | :---: | :---: | :-----: |
